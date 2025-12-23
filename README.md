@@ -36,7 +36,7 @@ Update the following values in the `.env` file:
 * **IMAGEKIT API Keys**
 
   * Create an account on **ImageKit**
-  * Add your ImageKit public key, private key, and URL endpoint
+  * Add your ImageKit private key
 
 * **MONGODB_URI**
 
