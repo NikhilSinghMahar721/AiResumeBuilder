@@ -1,7 +1,3 @@
-Here is a **clean, well-structured `README.md`** you can directly copy and use for your GitHub repository:
-
----
-
 # AI Resume Builder
 
 ## 📌 About the Project
@@ -94,12 +90,3 @@ OPENAI_MODEL = "gemini-2.5-flash"
 * PDF download support
 
 ---
-
-If you want, I can also:
-
-* Add **installation steps**
-* Add **API documentation**
-* Make it **college-project ready**
-* Convert it into a **professional open-source README**
-
-Just tell me 👍
