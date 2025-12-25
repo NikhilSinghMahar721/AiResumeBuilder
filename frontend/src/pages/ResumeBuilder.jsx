@@ -19,6 +19,7 @@ import TempelateSelector from "../components/TempelateSelector";
 import ColorPicker from "../components/ColorPicker";
 import api from "../configs/api";
 import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 const ResumeBuilder = ()=> {
 
@@ -134,6 +135,7 @@ const ResumeBuilder = ()=> {
 
   const saveResume = async()=>{
     try {
+      setIsSaving(true)
       let updatedResumeData = structuredClone(resumeData)
 
       if(typeof resumeData.personal_info.image== 'object'){
@@ -151,6 +153,9 @@ const ResumeBuilder = ()=> {
       toast.success(data.message)
     } catch (error) {
       console.error("Error saving resume:",error)
+      toast.error(error?.response?.data?.message || 'Failed to save resume')
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -232,7 +237,7 @@ const ResumeBuilder = ()=> {
                 {/* Single Save button for the form (bottom of left panel) */}
                 <div className="mt-4 flex justify-end">
                   <button
-                    onClick={()=>{toast.promise(saveResume),{loading: 'Saving..'}}}
+                    onClick={() => toast.promise(saveResume(), { loading: 'Saving..' })}
                     disabled={isSaving}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-400 transition-all"
                   >

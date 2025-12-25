@@ -56,6 +56,7 @@ const Dashboard = () => {
       const { data } = await api.post('/api/ai/upload-resume', { title, resumeText: text }, {
         headers: { Authorization: `Bearer ${token}` }
       })
+      setAllResumes([...allResumes, data.resume])
       setTitle('')
       setResume(null)
       setUploadResume(false)

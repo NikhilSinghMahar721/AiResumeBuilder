@@ -11,6 +11,38 @@ const ExperienceForm = ({data, onChange, setResumeData}) => {
   const {token} = useSelector(state => state.auth)
   const [generatingIndex, setIsGenerating] = useState(-1)
 
+  const enhanceWithAI = async (index) => {
+    const description = data[index].description
+    if (!description.trim()) {
+      setEnhanceError('Please enter a description first')
+      setEnhanceErrorIndex(index)
+      return
+    }
+
+    setEnhancingIndex(index)
+    setEnhanceError(null)
+    setEnhanceErrorIndex(null)
+
+    try {
+      const { data: response } = await api.post('/api/ai/enhance-job-desc', { userContent: description }, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+
+      const updated = [...data]
+      updated[index].description = response.enhancedContent
+      onChange(updated)
+    } catch (error) {
+      setEnhanceError(error?.response?.data?.message || error.message)
+      setEnhanceErrorIndex(index)
+    } finally {
+      setEnhancingIndex(null)
+    }
+  }
+
+
+
+
+
 
 
 
