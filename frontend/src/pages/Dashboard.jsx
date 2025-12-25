@@ -86,8 +86,7 @@ const editTitle = async (e, passedId) => {
   }
 
   try {
-    const rawPayload = { title: newTitle /*, other fields if any */ };
-    const payload = cleanPayload(rawPayload);
+    const payload = { title: newTitle };
 
     // Optional debug: inspect payload before sending
     console.log("PUT payload:", payload);
@@ -97,7 +96,7 @@ const editTitle = async (e, passedId) => {
     });
 
     const respData = response && response.data ? response.data : null;
-    const updatedTitle = (respData && respData.data && respData.data.title) ? respData.data.title : newTitle;
+    const updatedTitle = (respData && respData.resume && respData.resume.title) ? respData.resume.title : newTitle;
 
     setAllResumes((prev) => prev.map(r => r._id === resumeId ? { ...r, title: updatedTitle } : r));
     setTitle("");

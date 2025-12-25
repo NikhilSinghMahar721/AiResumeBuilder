@@ -80,18 +80,23 @@ export const getPublicResumeById = async (req, res) => {
 };
 
 // controller for updating a resume
-// PUT: /api/resumes/update
+// PUT: /api/resumes/update/:resumeId
 export const updateResume = async (req, res) => {
   try {
     const userId = req.userId;
-    const { resumeId, resumeData, removeBackground } = req.body;
+    const { resumeId } = req.params;
+    const { resumeData, removeBackground, ...updateData } = req.body;
     const image = req.file;
 
       let resumeDataCopy;
-      if(typeof resumeData === 'string'){
-        resumeDataCopy = await JSON.parse(resumeData)
-      }else{
-        resumeDataCopy = structuredClone(resumeData)
+      if(resumeData){
+        if(typeof resumeData === 'string'){
+          resumeDataCopy = await JSON.parse(resumeData)
+        }else{
+          resumeDataCopy = structuredClone(resumeData)
+        }
+      } else {
+        resumeDataCopy = updateData;
       }
 
     if (image) {
